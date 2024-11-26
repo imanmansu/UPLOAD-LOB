@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definition Employee Attachment'
+define service ZEMPLOYEE_ATT_SD {
+  expose zemployee_attach_tab_p;
+  expose zemployee_attach_tabl_p;
+}

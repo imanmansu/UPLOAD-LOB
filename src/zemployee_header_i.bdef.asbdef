@@ -1,0 +1,63 @@
+managed implementation in class zbp_employee_header_i unique;
+strict; with draft;
+
+define behavior for zemployee_header_i alias Employee //alias <alias_name>
+persistent table zemployee_header
+draft table zemployee_h_d
+lock master
+total etag Locallastchangedat
+authorization master ( global )
+etag master Lastchangedat
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  association _Attachments { create; with draft; }
+  field ( numbering : managed, readonly ) Id;
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+//Kopyalama için  FACTORY ACTION ekleme
+  static factory action copyEmployee[1];
+
+  static factory action createEmployee[1];
+
+  mapping for zemployee_header
+  {
+    Id = id;
+    Firstname = firstname;
+    Lastname = lastname;
+    Age = age;
+    Role = role;
+    Division = division;
+    Lastchangedat = lastchangedat;
+    Locallastchangedat = locallastchangedat;
+  }
+
+}
+
+define behavior for zemployee_attach_i alias Attachments //alias <alias_name>
+persistent table zemployee_attach
+draft table zemployee_att_d
+lock dependent by _employee
+authorization dependent by _employee
+etag master LastChangeDat
+{
+  update;
+  delete;
+  field ( readonly ) Id;
+  association _employee { with draft; }
+  mapping for zemployee_attach
+  {
+    AttachId = attach_id;
+    Attachment = attachment;
+    Comments = comments;
+    Filename = filename;
+    Id = id;
+    Mimetype = mimetype;
+  }
+}

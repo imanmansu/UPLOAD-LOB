@@ -1,0 +1,5 @@
+CLASS zbp_employee_header_i DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zemployee_header_i.
+ENDCLASS.
+
+CLASS zbp_employee_header_i IMPLEMENTATION.
+ENDCLASS.
